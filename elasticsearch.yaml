@@ -2,6 +2,7 @@ apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
   name: elasticsearch
+  namespace: elastic-system
 spec:
   version: 8.14.1
   nodeSets:
@@ -9,20 +10,8 @@ spec:
     count: 3
     config:
       node.roles: ["master"]
-    volumeClaimTemplates:
-    - metadata:
-        name: elasticsearch-master
-      spec:
-        accessModes:
-        - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
-        storageClassName: standard
-  - name: data-nodes
-    count: 2
-    config:
-      node.roles: ["data"]
+      xpack.ml.enabled: true
+      node.store.allow_mmap: false
     volumeClaimTemplates:
     - metadata:
         name: elasticsearch-data
@@ -33,13 +22,20 @@ spec:
           requests:
             storage: 10Gi
         storageClassName: standard
-  - name: client-nodes
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          image: docker.io/elasticsearch:8.14.1
+  - name: data-nodes
     count: 2
     config:
-      node.roles: ["ingest"]
+      node.roles: ["data"]
+      xpack.ml.enabled: true
+      node.store.allow_mmap: false
     volumeClaimTemplates:
     - metadata:
-        name: elasticsearch-client
+        name: elasticsearch-data
       spec:
         accessModes:
         - ReadWriteOnce
@@ -47,3 +43,19 @@ spec:
           requests:
             storage: 10Gi
         storageClassName: standard
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          image: docker.io/elasticsearch:8.14.1
+  - name: client-nodes
+    count: 2
+    config:
+      node.roles: ["ingest"]
+      xpack.ml.enabled: true
+      node.store.allow_mmap: false
+    podTemplate:
+      spec:
+        containers:
+        - name: elasticsearch
+          image: docker.io/elasticsearch:8.14.1

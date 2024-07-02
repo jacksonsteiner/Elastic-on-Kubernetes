@@ -1,2 +1,5 @@
-kubectl create -f https://download.elastic.co/downloads/eck/2.13.0/crds.yaml
-kubectl apply -f https://download.elastic.co/downloads/eck/2.13.0/operator.yaml
+kubectl create -f ./crds.yaml
+kubectl apply -f ./operator.yaml
+kubectl apply -f ./elasticsearch.yaml
+kubectl apply -f ./apm-server.yaml
+kubectl apply -f ./kibana.yaml
