@@ -1,20 +1,14 @@
-apiVersion: v1
-kind: Service
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana
 config:
   xpack.fleet.packages:
   - name: apm
     version: latest
-metadata:
-  creationTimestamp: null
-  labels:
-    app: kibana
-  name: kibana
-  namespace: elastic-system
 spec:
-  ports:
-  - port: 5601
-    protocol: TCP
-    targetPort: 5601
-  selector:
-    app: kibana
-  type: NodePort
+  version: 8.14.1
+  count: 1
+  elasticsearchRef:
+    name: elasticsearch
+    namespace: elastic-system
