@@ -21,7 +21,7 @@ spec:
         resources:
           requests:
             storage: 10Gi
-        storageClassName: standard
+        storageClassName: elastic
     podTemplate:
       spec:
         containers:
@@ -42,7 +42,7 @@ spec:
         resources:
           requests:
             storage: 10Gi
-        storageClassName: standard
+        storageClassName: elastic
     podTemplate:
       spec:
         containers:
