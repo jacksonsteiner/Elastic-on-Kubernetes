@@ -5,7 +5,7 @@ metadata:
   namespace: elastic-system
   annotations:
     storageclass.kubernetes.io/is-default-class: "false"
-provisioner: k8s.io/minikube-hostpath
+provisioner: kubernetes.io/no-provisioner
 reclaimPolicy: Delete
 allowVolumeExpansion: false
 volumeBindingMode: Immediate
