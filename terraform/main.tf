@@ -1,10 +1,3 @@
-
-// resource "google_project" "elasticstack" {
-//   name            = "elasticstack"
-//   project_id      = var.aiml_project
-//   auto_create_network = false
-// }
-
 module "autopilot" {
   source          = "./autopilot"
   aiml_project    = var.aiml_project
@@ -17,4 +10,8 @@ module "autopilot" {
 module "deployment" {
   source     = "./deployment"
   depends_on = [ module.autopilot ]
+  providers  = {
+    kubectl = kubectl.kubectl
+    helm    = helm.helm
+  }
 }
