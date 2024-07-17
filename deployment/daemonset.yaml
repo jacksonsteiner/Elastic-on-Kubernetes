@@ -6,7 +6,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: max-map-count-setter
-  namespace: es-cluster1
+  namespace: es-cluster
   labels:
     k8s-app: max-map-count-setter
 spec:

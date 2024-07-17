@@ -1,6 +1,6 @@
-resource "kubernetes_namespace" "es-cluster1" {
+resource "kubernetes_namespace" "es-cluster" {
   metadata {
-    name = "es-cluster1"
+    name = var.cluster
   }
 }
 
@@ -10,7 +10,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: max-map-count-setter
-  namespace: es-cluster1
+  namespace: ${var.cluster}
   labels:
     k8s-app: max-map-count-setter
 spec:
@@ -40,15 +40,15 @@ spec:
           image: docker.io/bash:5.2.21
           command: ['sleep', 'infinity']
 YAML
+  depends_on = [ kubernetes_namespace.es-cluster ]
 }
 
-resource "helm_release" "es-cluster1" {
-  name       = "es-cluster1"
+resource "helm_release" "es-cluster" {
+  name       = var.cluster
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "elasticsearch"
   version    = "21.2.8"
-  namespace   = "es-cluster1"
-  create_namespace = true
+  namespace  = var.cluster
 
   values = [
     "${file("${path.module}/values.yaml")}"

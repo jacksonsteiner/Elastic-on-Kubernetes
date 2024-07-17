@@ -84,11 +84,11 @@ kibana:
       auth:
         enabled: true
         createSystemUser: true
-        elasticsearchPasswordSecret: "es-cluster1-elasticsearch"
+        elasticsearchPasswordSecret: "es-cluster-elasticsearch"
         kibanaPassword: "kibana"
       tls:
         enabled: true
-        existingSecret: "es-cluster1-elasticsearch-data-crt"
+        existingSecret: "es-cluster-elasticsearch-data-crt"
         usePemCerts: true
   pdb:
     create: false

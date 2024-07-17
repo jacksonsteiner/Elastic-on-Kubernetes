@@ -1,10 +1,10 @@
 resource "google_container_cluster" "es-cluster" {
-  name     = "es-cluster"
-  location = "us-east1"
-  project  = var.aiml_project
+  name     = var.cluster
+  location = var.region
+  project  = var.elastic_project
 
-  network    = var.vpc
-  subnetwork = var.subnet
+  network    = google_compute_network.vpc_network.id
+  subnetwork = google_compute_subnetwork.subnet.id
 
   ip_allocation_policy {
     cluster_secondary_range_name  = var.subnet-pods

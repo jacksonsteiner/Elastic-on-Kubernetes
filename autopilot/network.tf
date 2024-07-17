@@ -1,14 +1,14 @@
 resource "google_compute_network" "vpc_network" {
   name                    = var.vpc
-  project                 = var.aiml_project
+  project                 = var.elastic_project
   auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "subnet" {
   name          = var.subnet
-  project       = var.aiml_project
+  project       = var.elastic_project
   ip_cidr_range = "10.2.0.0/16"
-  region        = "us-east1"
+  region        = var.region
   network       = google_compute_network.vpc_network.id
   secondary_ip_range {
     range_name    = var.subnet-pods

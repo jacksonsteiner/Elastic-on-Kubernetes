@@ -5,26 +5,26 @@ locals {
 }
 
 resource "google_project_service" "serviceusage" {
-  project = var.aiml_project
+  project = var.elastic_project
   service = "serviceusage.googleapis.com"
 }
 
 resource "google_project_service" "cloudresourcemanager" {
-  project = var.aiml_project
+  project = var.elastic_project
   service = "cloudresourcemanager.googleapis.com"
 }
 
 resource "google_project_service" "cloudbilling" {
-  project = var.aiml_project
+  project = var.elastic_project
   service = "cloudbilling.googleapis.com"
 }
 
 resource "google_project_service" "compute" {
-  project = var.aiml_project
+  project = var.elastic_project
   service = "compute.googleapis.com"
 }
 
 resource "google_project_service" "container" {
-  project = var.aiml_project
+  project = var.elastic_project
   service = "container.googleapis.com"
 }
