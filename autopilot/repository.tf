@@ -18,5 +18,5 @@ resource "google_cloudbuild_trigger" "push-trigger" {
       branch = "^main$"
     }
   }
-  filename = "cloudbuild.yaml"
+  filename = "${file("${path.module}/cloudbuild.yaml")}"
 }
