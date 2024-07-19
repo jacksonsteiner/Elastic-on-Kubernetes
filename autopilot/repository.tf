@@ -18,5 +18,23 @@ resource "google_cloudbuild_trigger" "push-trigger" {
       branch = "^main$"
     }
   }
-  filename = "${file("${path.module}/cloudbuild.yaml")}"
+
+  build {
+    step {
+      name = "gcr.io/cloud-builders/docker"
+      args = [
+        "build",
+        "-t",
+        "us-east1-docker.pkg.dev/$PROJECT_ID/elastic-repository/apm-server:latest",
+        "."
+      ]
+    }
+    step {
+      name = "gcr.io/cloud-builders/docker"
+      args = [
+        "push",
+        "us-east1-docker.pkg.dev/$PROJECT_ID/elastic-repository/apm-server:latest"
+      ]
+    }
+  }
 }
