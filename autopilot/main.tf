@@ -28,3 +28,13 @@ resource "google_project_service" "container" {
   project = var.elastic_project
   service = "container.googleapis.com"
 }
+
+resource "google_project_service" "artifactregistry" {
+  project = var.elastic_project
+  service = "artifactregistry.googleapis.com"
+}
+
+resource "google_project_service" "cloudbuild" {
+  project = var.elastic_project
+  service = "cloudbuild.googleapis.com"
+}

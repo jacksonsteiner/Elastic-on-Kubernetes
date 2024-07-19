@@ -55,3 +55,23 @@ resource "helm_release" "es-cluster" {
   ]
   depends_on = [ kubectl_manifest.daemonset ]
 }
+
+resource "kubectl_manifest" "apm-server" {
+    yaml_body = <<YAML
+apiVersion: v1
+kind: Service
+metadata:
+  name: apm-server
+spec:
+  type: LoadBalancer
+  selector:
+    app: apm-server
+    spec:
+      containers:
+      - name: apm-server
+        image: 
+        ports:
+        - containerPort: 8200
+YAML
+  depends_on = [ kubectl_manifest.daemonset ]
+}

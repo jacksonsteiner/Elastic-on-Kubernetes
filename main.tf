@@ -1,6 +1,7 @@
 module "autopilot" {
   source          = "./autopilot"
   elastic_project = var.elastic_project
+  tf_sa           = var.tf_sa
   region          = var.region
   vpc             = var.vpc
   subnet          = var.subnet

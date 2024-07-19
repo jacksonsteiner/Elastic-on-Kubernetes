@@ -1,6 +1,9 @@
 variable "elastic_project" {
 }
 
+variable "tf_sa" {
+}
+
 variable "region" {
 }
 
