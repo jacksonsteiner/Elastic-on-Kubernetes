@@ -6,10 +6,11 @@ resource "google_artifact_registry_repository" "repository" {
 }
 
 resource "google_cloudbuild_trigger" "push-trigger" {
-  project         = var.elastic_project
-  name            = "push-trigger"
-  location        = var.region
-  #service_account = "projects/${var.elastic_project}/serviceAccounts/${var.tf_sa}"
+  project            = var.elastic_project
+  name               = "push-trigger"
+  location           = var.region
+  service_account    = "projects/${var.elastic_project}/serviceAccounts/${var.tf_sa}"
+  include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
 
   github {
     owner = "jacksonsteiner"
