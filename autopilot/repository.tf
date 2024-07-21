@@ -10,7 +10,6 @@ resource "google_cloudbuild_trigger" "push-trigger" {
   name               = "push-trigger"
   location           = var.region
   service_account    = "projects/${var.elastic_project}/serviceAccounts/${var.tf_sa}"
-  include_build_logs = "INCLUDE_BUILD_LOGS_WITH_STATUS"
 
   github {
     owner = "jacksonsteiner"
@@ -36,6 +35,9 @@ resource "google_cloudbuild_trigger" "push-trigger" {
         "push",
         "us-east1-docker.pkg.dev/$PROJECT_ID/elastic-repository/apm-server:latest"
       ]
+    }
+    options {
+      logging = "CLOUD_LOGGING_ONLY"
     }
   }
 }
